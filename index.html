@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Body Fat Percentage Calculator | FatPulse</title>
+<meta name="description" content="Measure your body fat percentage with US Navy and BMI methods. Enter a few measurements to see body-fat category, lean mass and fat-mass estimates.">
+<link rel="canonical" href="https://fatpulse.com/">
+<meta property="og:title" content="Body Fat Percentage Calculator | FatPulse">
+<meta property="og:description" content="Estimate your body fat percentage at home with the US Navy circumference method, compare BMI estimates, and plan a target body-fat goal.">
+<meta property="og:url" content="https://fatpulse.com/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="FatPulse">
+<meta name="robots" content="index, follow">
+<link rel="icon" type="image/svg+xml" href="images/logo.svg">
+<link rel="stylesheet" href="css/style.css?v=ddcb4831">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chivo:wght@500;700;900&family=Public+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "FatPulse Body Fat Percentage Calculator",
+  "url": "https://fatpulse.com/",
+  "applicationCategory": "HealthApplication",
+  "operatingSystem": "Any",
+  "description": "Estimate body fat percentage with the US Navy circumference method, compare against BMI estimates, and set a target body-fat goal."
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Is body fat percentage better than BMI?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Generally yes for tracking body composition. BMI only compares weight to height and can't tell muscle from fat, so a lean athlete score can look \"overweight\". Body fat percentage measures what's actually fat versus lean tissue." }
+    },
+    {
+      "@type": "Question",
+      "name": "How accurate is the U.S. Navy method?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Within about 3 percentage points of DEXA for most people when measurements are taken correctly. Consistency matters more than precision — measure the same spot at the same time of day to see true trends." }
+    },
+    {
+      "@type": "Question",
+      "name": "How fast can I safely lower body fat?",
+      "acceptedAnswer": { "@type": "Answer", "text": "A target of roughly 0.5–1% of body weight per week (a 250–500 kcal daily deficit) preserves muscle and is widely considered sustainable. Plan on losing about 0.5–1% body fat per month as a realistic benchmark." }
+    },
+    {
+      "@type": "Question",
+      "name": "What's a healthy body fat for a man vs. a woman?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Essential levels are about 2–5% for men and 10–13% for women. Athletic ranges run 6–13% (men) and 14–20% (women); acceptable zones are roughly 18–24% (men) and 25–31% (women)." }
+    }
+  ]
+}
+</script>
+  <!-- cms:ga4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-06R2RJX253"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-06R2RJX253', { anonymize_ip: true });
+</script><!-- /cms:ga4 -->
+</head>
+<body>
+<a class="skip-link" href="#app">Skip to calculator</a>
+
+<header class="site-head">
+  <div class="wrap head-inner">
+    <a class="brand" href="/" aria-label="FatPulse home">
+      <img src="images/logo.svg" alt="FatPulse logo" class="logo" width="38" height="38">
+      <span class="brand-name">Fat<span>Pulse</span></span>
+    </a>
+        <nav class="fp-nv" aria-label="Main menu">
+      <ul class="fp-nvlinks"><li><a href="/articles">Guides</a></li><li><a href="/about-us">About</a></li><li><a href="/contact">Contact</a></li></ul>
+      <button class="fp-kebab" id="fp-kebab" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
+      <div class="fp-veil" id="fp-veil" hidden></div>
+      <aside class="fp-drawer" id="fp-drawer" aria-hidden="true">
+      <a href="/articles">Guides</a>
+      <a href="/about-us">About</a>
+      <a href="/contact">Contact</a>
+      </aside>
+    </nav>
+  </div>
+</header>
+
+<main id="app">
+  <section class="hero">
+    <div class="wrap">
+      <p class="eyebrow">Body Composition — U.S. Navy Method</p>
+      <h1>What's your true body fat?</h1>
+      <p class="lede">BMI hides where your weight sits. FatPulse uses the U.S. Navy circumference method to estimate your body fat from a tape measure alone — no scale, no clinic visit.</p>
+    </div>
+  </section>
+
+  <section class="tool wrap" aria-label="Body fat calculator">
+    <form id="bf-form" class="panel" novalidate>
+      <fieldset class="seg" id="gender">
+        <legend>Sex assigned at birth</legend>
+        <div class="seg-options">
+          <button type="button" class="seg-btn active" data-g="m">Male</button>
+          <button type="button" class="seg-btn" data-g="f">Female</button>
+        </div>
+      </fieldset>
+
+      <div class="fields-grid">
+        <div class="input-field">
+          <label for="age">Age</label>
+          <div class="input-suffix"><input type="number" id="age" inputmode="numeric" min="18" max="99" placeholder="30"><span class="suffix">years</span></div>
+        </div>
+        <div class="input-field">
+          <label for="height-cm">Height</label>
+          <div class="input-suffix"><input type="number" id="height-cm" step="any" inputmode="decimal" placeholder="175"><span class="suffix">cm</span></div>
+        </div>
+        <div class="input-field">
+          <label for="weight-kg">Weight</label>
+          <div class="input-suffix"><input type="number" id="weight-kg" step="any" inputmode="decimal" placeholder="78"><span class="suffix">kg</span></div>
+        </div>
+        <div class="input-field">
+          <label for="neck-cm">Neck</label>
+          <div class="input-suffix"><input type="number" id="neck-cm" step="any" inputmode="decimal" placeholder="38"><span class="suffix">cm</span></div>
+        </div>
+        <div class="input-field">
+          <label for="waist-cm">Waist</label>
+          <div class="input-suffix"><input type="number" id="waist-cm" step="any" inputmode="decimal" placeholder="86"><span class="suffix">cm</span></div>
+        </div>
+        <div class="input-field" id="hip-field">
+          <label for="hip-cm">Hip (max)</label>
+          <div class="input-suffix"><input type="number" id="hip-cm" step="any" inputmode="decimal" placeholder="98"><span class="suffix">cm</span></div>
+          <p class="field-hint">Female measurement under the Navy method</p>
+        </div>
+      </div>
+
+      <button type="submit" class="btn-primary" id="calc-btn">Calculate body fat</button>
+      <p class="error-msg" id="error-msg" role="alert"></p>
+    </form>
+
+    <div class="results" id="results" hidden>
+      <div class="result-hero" id="result-hero">
+        <div class="ring-wrap">
+          <svg class="ring" viewBox="0 0 120 120" role="img" aria-label="Body fat gauge">
+            <circle class="ring-track" cx="60" cy="60" r="52"></circle>
+            <circle class="ring-progress" id="ring-progress" cx="60" cy="60" r="52"></circle>
+          </svg>
+          <div class="ring-center">
+            <span class="bf-digital" id="bf-value">--</span>
+            <span class="bf-label">% body fat</span>
+          </div>
+        </div>
+        <div class="result-hero-text">
+          <p class="result-kicker" id="bf-cat">—</p>
+          <h2 id="bf-title">Body fat estimate</h2>
+          <p id="bf-desc">Measuring…</p>
+        </div>
+      </div>
+
+      <div class="stat-grid">
+        <div class="stat"><span class="stat-num" id="s-lean">—</span><span class="stat-name">Lean mass</span></div>
+        <div class="stat"><span class="stat-num" id="s-fat">—</span><span class="stat-name">Fat mass</span></div>
+        <div class="stat"><span class="stat-num" id="s-bmi">—</span><span class="stat-name">BMI</span></div>
+      </div>
+
+      <div class="cat-panel">
+        <h3>Where you sit <span>· ACE ranges</span></h3>
+        <div class="cat-bar" role="img" aria-label="Body fat category scale">
+          <span class="cat-block" data-c="essential">Essential</span>
+          <span class="cat-block" data-c="athletes">Athletes</span>
+          <span class="cat-block" data-c="fitness">Fitness</span>
+          <span class="cat-block" data-c="acceptable">Acceptable</span>
+          <span class="cat-block" data-c="obese">Obese</span>
+        </div>
+        <div class="cat-marker" id="cat-marker"></div>
+        <p class="cat-readout" id="cat-readout"></p>
+      </div>
+
+      <div class="compare-panel">
+        <h3>Navy vs. BMI estimate</h3>
+        <div class="compare-row">
+          <div class="cmp"><span class="cmp-name">U.S. Navy</span><span class="cmp-val" id="cmp-navy">—</span></div>
+          <div class="cmp"><span class="cmp-name">BMI formula</span><span class="cmp-val" id="cmp-bmi" >—</span></div>
+        </div>
+        <p class="compare-note" id="compare-note"></p>
+      </div>
+
+      <div class="target-panel">
+        <h3>Target your body fat</h3>
+        <div class="target-row">
+          <label for="target-bf">Desired body fat</label>
+          <div class="input-suffix inline"><input type="number" id="target-bf" step="0.01" inputmode="decimal" min="3" max="45" placeholder="20"><span class="suffix">%</span></div>
+          <button type="button" class="btn-ghost" id="target-btn">Plan it</button>
+        </div>
+        <div class="target-results" id="target-results" hidden>
+          <div class="stat-grid">
+            <div class="stat"><span class="stat-num" id="t-weight">—</span><span class="stat-name">Target weight</span></div>
+            <div class="stat"><span class="stat-num" id="t-to-lose">—</span><span class="stat-name">Fat to lose</span></div>
+            <div class="stat"><span class="stat-num" id="t-months">—</span><span class="stat-name">Est. time</span></div>
+          </div>
+          <p class="target-note" id="target-note"></p>
+        </div>
+      </div>
+
+      <div class="disclaimer-micro">Estimates only — not medical advice. Individual variation is normal.</div>
+    </div>
+  </section>
+
+  <section class="method wrap">
+    <div class="method-grid">
+      <div class="method-copy">
+        <p class="eyebrow">Why it works</p>
+        <h2>The Navy method reads your waist, not your wallet</h2>
+        <p>Research-grade body fat tests (DEXA, hydrostatic) cost time and money. The U.S. Navy circumference method uses age, sex and tape-measure figures to match clinical estimates within a few points — accurate enough to track monthly progress.</p>
+      </div>
+      <ol class="method-steps">
+        <li><strong>Measure</strong> neck, waist and (for women) hip at their widest point.</li>
+        <li><strong>Convert</strong> inches to the formula — FatPulse does this automatically.</li>
+        <li><strong>Compare</strong> against ACE ranges so you know whether you're in "fitness" or "acceptable".</li>
+        <li><strong>Target</strong> a realistic body fat and work back from a safe weekly fat-loss rate.</li>
+      </ol>
+    </div>
+  </section>
+
+  
+    <!-- cms:guide-block 用途解释+使用步骤 -->
+    <section class="guide-block" aria-label="About Body Fat Percentage Calculator and how to use it">
+      <h2>a quick check between milestones</h2>
+<p>FatPulse gives you a body fat percentage estimate in seconds using the U.S. Navy circumference method. It's built for people who track progress between DEXA scans or hydrostatic tests, or who don't have access to clinical measurement at all. If you're cutting, bulking, or just want a consistent reference point week to week, this tool turns five tape-measure numbers into a single figure you can log. It's not a diagnostic instrument, but it's reliable enough to spot trends over time.</p>
+    </section>
+<section class="faq wrap">
+    <h2>Body fat basics</h2>
+    <details class="faq-item">
+      <summary>Is body fat percentage better than BMI?</summary>
+      <p>Generally yes for tracking body composition. BMI only compares weight to height and can't tell muscle from fat, so a lean athlete score can look "overweight". Body fat percentage measures what's actually fat versus lean tissue.</p>
+    </details>
+    <details class="faq-item">
+      <summary>How accurate is the U.S. Navy method?</summary>
+      <p>Within about 3 percentage points of DEXA for most people when measurements are taken correctly. Consistency matters more than precision — measure the same spot at the same time of day to see true trends.</p>
+    </details>
+    <details class="faq-item">
+      <summary>How fast can I safely lower body fat?</summary>
+      <p>A target of roughly 0.5–1% of body weight per week (a 250–500 kcal daily deficit) preserves muscle and is widely considered sustainable. Plan on losing about 0.5–1% body fat per month as a realistic benchmark.</p>
+    </details>
+    <details class="faq-item">
+      <summary>What's a healthy body fat for a man vs. a woman?</summary>
+      <p>Essential levels are about 2–5% for men and 10–13% for women. Athletic ranges run 6–13% (men) and 14–20% (women); acceptable zones are roughly 18–24% (men) and 25–31% (women).</p>
+    </details>
+  </section>
+
+  <section class="articles-teaser wrap">
+    <div class="teaser-head">
+      <h2>Read the science</h2>
+      <a class="text-link" href="articles">All guides →</a>
+    </div>
+    <article class="teaser-card"><a href="us-navy-body-fat-formula-explained"><h3>How the Navy body-fat formula actually works</h3><p>The math behind circumference-based body composition estimates, decoded.</p></a></article>
+    <article class="teaser-card"><a href="body-fat-percentage-vs-bmi-which-matters-more"><h3>Body fat vs. BMI: which number matters more</h3><p>Why two fit people with the same BMI can have very different body fat.</p></a></article>
+  </section>
+</main>
+
+<!-- CONVERTER-HUBS-START -->
+    <section class="content-section">
+      <div class="inner">
+        <h2>Body fat by waist size</h2>
+        <p>Height down the page, waist across it: each entry works the Navy tape equation through in full, names the ACE band and shows what two inches of waist either way would do.</p>
+        <div class="fp-rel">
+          <a href="/body-fat/waist-to-body-fat-chart">Full waist chart</a>
+          <a href="/body-fat/70-32">5ft 10in, 32-inch waist</a>
+          <a href="/body-fat/70-34">5ft 10in, 34-inch waist</a>
+          <a href="/body-fat/70-36">5ft 10in, 36-inch waist</a>
+          <a href="/body-fat/72-34">6ft 0in, 34-inch waist</a>
+          <a href="/body-fat/76-36">6ft 4in, 36-inch waist</a>
+        </div>
+      </div>
+    </section>
+    <!-- CONVERTER-HUBS-END -->
+
+    <!-- ARTICLES-LIST-START -->
+    <section class="content-section">
+      <div class="inner">
+        <h2>Latest Articles</h2>
+        <div class="article-list">
+          <a href="how-to-calculate-protein-requirements-based-on-lean-body-mass-derived-from-the-navy-body-fat-formula">
+            <div class="article-title">How to Calculate Protein Requirements Based on Lean Body Mass Derived From the Navy Body Fat Formula</div>
+            <div class="article-desc">Last spring, I watched two friends—Marcus and Devan—embark on nearly identical fitness journeys. Both wanted to recomposition: lose fat, hold onto muscle, train hard. Both weighed around 220 pounds.</div>
+          </a>
+          <a href="preventing-skinny-fat-syndrome-using-body-fat-percentage-metrics-instead-of-scale-weight-to-assess-metabolic-health">
+            <div class="article-title">Preventing Skinny Fat Syndrome: Using Body Fat Percentage Metrics Instead of Scale Weight to Assess Metabolic Health</div>
+            <div class="article-desc">Last spring, a friend named Daniel walked into my office convinced he was in the best shape of his life. His bathroom scale read 162 pounds—down from 185 the year before.</div>
+          </a>
+          <a href="calculating-true-lean-body-mass-gains-from-month-to-month-navy-method-body-fat-percentage-data">
+            <div class="article-title">Calculating True Lean Body Mass Gains From Month-to-Month Navy Method Body Fat Percentage Data</div>
+            <div class="article-desc">It's the first Saturday of the month. You've been training hard, eating in a slight surplus, sleeping okay-ish.</div>
+          </a>
+          <a href="using-the-navy-method-to-track-fat-loss-and-muscle-growth-separately-during-a-recomposition-phase">
+            <div class="article-title">Using the Navy Method to Track Fat Loss and Muscle Growth Separately During a Recomposition Phase</div>
+            <div class="article-desc">Last March, my friend Jake — a 34-year-old desk worker who'd been lifting weights three times a week for six months — texted me a photo of his bathroom scale. The number read 178.2 lbs.</div>
+          </a>
+          <a href="does-clothing-and-body-hair-interfere-with-navy-method-tape-measure-accuracy-for-body-fat-calculation">
+            <div class="article-title">Does Clothing and Body Hair Interfere With Navy Method Tape Measure Accuracy for Body Fat Calculation</div>
+            <div class="article-desc">Last March, I stepped into my bathroom, grabbed my vinyl tape measure, and took my usual Navy Method measurements before rushing to work. Neck: 15.2 inches. Waist: 34.5 inches. Hips: 39 inches.</div>
+          </a>
+          <a href="why-navy-method-body-fat-percentage-increases-during-weight-loss-and-how-to-fix-it">
+            <div class="article-title">Why Navy Method Body Fat Percentage Increases During Weight Loss and How to Fix It</div>
+            <div class="article-desc">When Marcus first plugged his measurements into our Navy Method calculator, he was sitting at 23.8% body fat. Eight weeks later, fifteen pounds lighter, he ran the numbers again. The result? 24.7%.</div>
+          </a>
+          <a href="using-body-fat-percentage-over-bmi-to-prevent-muscle-loss-during-weight-loss">
+            <div class="article-title">Using Body Fat Percentage Over BMI to Prevent Muscle Loss During Weight Loss</div>
+            <div class="article-desc">Last spring, a friend named Marcus came to me with a problem that didn't make sense. He'd lost 18 pounds in three months. His BMI calculator said he was making great progress. His doctor was pleased.</div>
+          </a>
+          <a href="tracking-muscle-growth-and-lean-mass-gains-with-the-navy-body-fat-formula">
+            <div class="article-title">Tracking Muscle Growth and Lean Mass Gains With the Navy Body Fat Formula</div>
+            <div class="article-desc">Last March, my buddy Derek and I started a 12-week hypertrophy block together. We both weighed 178 pounds on Day 1. Twelve weeks later, we both weighed 184 pounds.</div>
+          </a>
+          <a href="essential-tape-measure-landmarks-required-for-the-navy-body-fat-formula-explained">
+            <div class="article-title">Essential Tape Measure Landmarks Required for the Navy Body Fat Formula Explained</div>
+            <div class="article-desc">Quick tip before we dive in: always measure your neck before your waist. Why? Because your waist measurement requires you to exhale and relax your midsection, and once you've contorted your body to…</div>
+          </a>
+          <a href="navy-method-body-fat-calculator-accuracy-compared-to-dexa-scans-and-smart-scales">
+            <div class="article-title">Navy Method Body Fat Calculator Accuracy Compared to DEXA Scans and Smart Scales</div>
+            <div class="article-desc">That's the question I kept asking myself last spring, standing in my bathroom with a tape measure in one hand and a printout of my DEXA results in the other. The numbers didn't match. Not even close.</div>
+          </a>
+          <a href="how-to-calculate-true-weight-loss-targets-using-exact-body-fat-percentage-metrics">
+            <div class="article-title">How to Calculate True Weight Loss Targets Using Exact Body Fat Percentage Metrics</div>
+            <div class="article-desc">Sarah stepped on her bathroom scale at 6:47 AM, the same way she had every Monday for the past three months. She held her breath. The digital display flickered, then settled: 165.2 pounds.</div>
+          </a>
+          <a href="healthy-rate-of-body-fat-loss-to-preserve-lean-muscle-mass-during-a-fitness-cut">
+            <div class="article-title">Healthy Rate of Body Fat Loss to Preserve Lean Muscle Mass During a Fitness Cut</div>
+            <div class="article-desc">There's a ceiling, and most people who blast past it pay for it in the mirror about six weeks later.</div>
+          </a>
+          <a href="how-often-should-you-calculate-body-fat-using-the-navy-method-for-accurate-progress-tracking">
+            <div class="article-title">How Often Should You Calculate Body Fat Using the Navy Method for Accurate Progress Tracking</div>
+            <div class="article-desc">Last spring a reader — I'll call him Dan — emailed me a spreadsheet that made me wince. Thirty-one rows.</div>
+          </a>
+          <a href="optimal-body-fat-percentage-ranges-for-men-and-women-a-health-metrics-guide">
+            <div class="article-title">Optimal Body Fat Percentage Ranges for Men and Women: A Health Metrics Guide</div>
+            <div class="article-desc">In 2008, researchers at the Mayo Clinic published a finding that quietly broke the BMI model: more than half of adults with a &quot;normal&quot; BMI had body fat percentages high enough to classify them as metabolically obese.</div>
+          </a>
+          <a href="how-to-set-weight-loss-goals-using-the-navy-method-body-fat-calculator-and-body-composition-chart-instead-of-bmi">
+            <div class="article-title">How to set weight loss goals using the navy method body fat calculator and body composition chart instead of bmi</div>
+            <div class="article-desc">Marcus steps off the doctor's scale at 200 pounds. He's 5'10&quot;. The nurse prints out his chart, circles &quot;BMI: 28.7 — Overweight,&quot; and hands him a generic diet pamphlet. Marcus trains four days a week.</div>
+          </a>
+          <a href="how-to-accurately-measure-waist-and-neck-for-the-navy-method-body-fat-calculator-to-track-home-fitness-progress">
+            <div class="article-title">How to Accurately Measure Waist and Neck for the Navy Method Body Fat Calculator to Track Home Fitness Progress</div>
+            <div class="article-desc">Here's the thing about working out at home: nobody's handing you a printed progress report. You're the coach, the athlete, and the data analyst all at once.</div>
+          </a>
+          <a href="why-does-my-bmi-say-overweight-but-my-navy-method-body-fat-percentage-is-healthy">
+            <div class="article-title">Why Does My BMI Say Overweight but My Navy Method Body Fat Percentage is Healthy</div>
+            <div class="article-desc">Picture this: You've been hitting the gym for six months. Your jeans fit better, you can see definition in your arms, and your energy is through the roof.</div>
+          </a>
+          <a href="how-to-use-the-navy-method-body-fat-calculator-to-set-weight-loss-goals-compared-to-standard-bmi-metrics">
+            <div class="article-title">How to use the Navy Method body fat calculator to set weight loss goals compared to standard BMI metrics</div>
+            <div class="article-desc">Here's something I learned the hard way after years of tracking my own fitness journey: weighing yourself on a standard scale tells you almost nothing useful.</div>
+          </a>
+          <a href="how-to-use-the-navy-method-body-fat-calculator-to-compare-bmi-and-set-realistic-weight-loss-goals">
+            <div class="article-title">Navy Method Body Fat Calculator vs BMI: 185 Lbs Lied</div>
+            <div class="article-desc">See how the Navy Method body fat calculator beats BMI. Using my real 185 lb example, learn to ditch scale obsession and set realistic weight loss goals. Read now!</div>
+          </a>
+          <a href="how-to-use-the-navy-method-body-fat-calculator-to-set-realistic-weight-loss-goals-based-on-your-body-fat-range">
+            <div class="article-title">Navy Method Body Fat Calculator: Design Weight Loss Targets</div>
+            <div class="article-desc">Run the Navy method body fat calculator to pinpoint your range and engineer realistic weight loss targets. Follow this workflow to calculate your numbers now.</div>
+          </a>
+          <a href="how-to-use-the-navy-method-body-fat-calculator-to-set-realistic-weight-loss-goals-compared-to-bmi">
+            <div class="article-title">Navy Method Body Fat Calculator: Set Goals In 5 Minutes</div>
+            <div class="article-desc">Ditch BMI. Use the Navy method body fat calculator to set realistic weight loss goals with our simple, real-number worked example. Try calculating yours now!</div>
+          </a>
+          <a href="how-to-use-the-navy-method-body-fat-calculator-to-track-home-fitness-progress-and-set-weight-loss-goals">
+            <div class="article-title">Navy Method Body Fat Calculator: 15% Target Example</div>
+            <div class="article-desc">Master the Navy method body fat calculator to track home fitness progress. See a 15% target example, set precise weight loss goals, and calculate yours today.</div>
+          </a>
+          <a href="how-to-use-the-navy-method-body-fat-calculator-versus-standard-bmi-metrics-to-plan-healthy-weight-loss-goals-at-home">
+            <div class="article-title">Navy Method Body Fat Calculator: 4 Steps Past BMI Stalls</div>
+            <div class="article-desc">Stop guessing progress. Use the Navy method body fat calculator to outsmart BMI limits and set real weight loss targets. Follow our step-by-step guide today!</div>
+          </a>
+          <a href="how-to-use-a-navy-method-body-fat-calculator-to-set-realistic-weight-loss-goals-compared-to-bmi">
+            <div class="article-title">Navy Method Body Fat Calculator: 15% Goal Crushes BMI</div>
+            <div class="article-desc">BMI says 28% fat, but you bench 225? Our Navy Method body fat calculator sets real weight loss goals using tape measures, not flawed scales. Test yours today.</div>
+          </a>
+          <a href="how-to-use-a-free-navy-method-body-fat-calculator-to-set-healthy-body-fat-range-goals-for-home-fitness">
+            <div class="article-title">How to Use a Free Navy Method Body Fat Calculator to Set Healthy Body Fat Range Goals for Home Fitness</div>
+            <div class="article-desc">Quick tip before we dive in: if you're using a free Navy method body fat calculator for the first time, measure your waist at the navel level — not where your jeans naturally ride.</div>
+          </a>
+          <a href="navy-method-body-fat-calculator-vs-bmi-comparison-for-tracking-healthy-body-fat-percentage-and-weight-loss-goals">
+            <div class="article-title">3 Navy Method Body Fat Calculator vs BMI Blunders</div>
+            <div class="article-desc">Stop guessing your progress. Compare Navy Method body fat calculator vs BMI to see which avoids weight loss tracking blunders. Fix your metrics and try it now!</div>
+          </a>
+          <a href="how-to-interpret-navy-method-body-fat-calculator-results-for-a-home-fitness-goal-planner">
+            <div class="article-title">How to Interpret Navy Method Body Fat Calculator Results for a Home Fitness Goal Planner</div>
+            <div class="article-desc">Most people run their measurements through a Navy Method body fat calculator, see a number like 22%, and immediately do one of two things.</div>
+          </a>
+          <a href="how-to-accurately-measure-neck-and-waist-for-the-navy-body-fat-calculator-at-home">
+            <div class="article-title">Navy Body Fat Calculator: Measure Neck Waist Accurately</div>
+            <div class="article-desc">Master how to measure neck and waist for the navy body fat calculator at home. Use our simple tape measure guide for exact results. Check your body fat today!</div>
+          </a>
+          <a href="navy-method-vs-bmi-calculator-which-body-fat-formula-is-better-for-home-fitness-assessments">
+            <div class="article-title">Navy Method vs BMI: True Body Fat in 5 Minutes</div>
+            <div class="article-desc">Navy method vs BMI calculator: which body fat formula works better at home? Get accurate numbers without expensive gear. Find out and start tracking today.</div>
+          </a>
+          <a href="how-to-accurately-measure-body-fat-percentage-at-home-using-the-navy-method-calculator">
+            <div class="article-title">Navy Method Calculator: Tape Measure vs Smart Scales</div>
+            <div class="article-desc">Ditch faulty smart scales. Learn my exact step-by-step workflow using the navy method calculator for accurate body fat results at home. Start measuring today!</div>
+          </a>
+        </div>
+        <p style="margin-top:18px;text-align:center;"><a href="articles" style="color:#2563eb;font-weight:600;text-decoration:none;">View All Articles &rarr;</a></p>
+      </div>
+    </section>
+    <!-- ARTICLES-LIST-END -->
+<footer class="site-foot">
+  <div class="wrap foot-grid">
+    <p class="foot-brand">FatPulse — body composition calculator</p>
+    <nav aria-label="Footer">
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="articles">Articles</a></li>
+        <li><a href="about-us">About Us</a></li>
+        <li><a href="contact">Contact</a></li>
+        <li><a href="privacy-policy">Privacy Policy</a>
+        <a href="privacy-policy" data-cookie-settings>Cookie Settings</a></li>
+        <li><a href="terms-of-service">Terms of Service</a></li>
+        <li><a href="disclaimer">Disclaimer</a></li>
+      </ul>
+    </nav>
+  </div>
+  <div class="wrap foot-legal">Estimates provided for informational purposes only and do not replace professional medical advice.</div>
+</footer>
+
+<script src="js/app.js?v=13"></script>
+<!-- cms:consent -->
+<div class="cookie-banner" role="dialog" aria-modal="false" aria-label="Cookie consent">
+  <div class="cookie-card">
+    <p class="cookie-text">We use strictly necessary cookies to run the site. With your consent, we and third parties such as Google AdSense may also use cookies to analyze traffic and show you relevant ads. You can accept all, decline all, or set your own preferences. See our <a href="/privacy-policy">Privacy Policy</a>.</p>
+    <div class="cookie-actions">
+      <button type="button" class="cookie-btn cookie-btn-decline" data-consent-decline>Decline all</button>
+      <button type="button" class="cookie-btn cookie-btn-accept" data-consent-accept>Accept all</button>
+      <button type="button" class="cookie-btn cookie-btn-settings" data-consent-settings>Cookie settings</button>
+    </div>
+    <div class="cookie-prefs">
+      <div class="cookie-pref-row">
+        <div><strong>Strictly necessary</strong><span>Required for the site to work. Always on.</span></div>
+        <input type="checkbox" checked disabled aria-label="Strictly necessary cookies">
+      </div>
+      <div class="cookie-pref-row">
+        <div><strong>Preferences</strong><span>Remembers your choices, such as theme and recent inputs.</span></div>
+        <input type="checkbox" data-consent-pref-preferences aria-label="Preference cookies">
+      </div>
+      <div class="cookie-pref-row">
+        <div><strong>Advertising</strong><span>Used by us and partners such as Google to deliver relevant ads.</span></div>
+        <input type="checkbox" data-consent-pref-ads aria-label="Advertising cookies">
+      </div>
+      <div class="cookie-actions">
+        <button type="button" class="cookie-btn cookie-btn-accept" data-consent-save>Save my choices</button>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="/js/consent.js?v=1" defer></script>
+<!-- /cms:consent -->
+</body>
+</html>
